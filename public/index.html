@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>NordVPN for Linux Dashboard</title>
+  <style>
+    body { font-family: sans-serif; max-width: 800px; margin: 40px auto; }
+    button { margin: 4px; padding: 8px 12px; }
+    pre { background: #111; color: #0f0; padding: 10px; overflow-x: auto; }
+    input, select { padding: 6px; margin: 4px; }
+  </style>
+</head>
+<body>
+  <h1>NordVPN for Linux Dashboard</h1>
+
+  <div>
+    <label>Auth token (optional):</label>
+    <input type="password" id="token" placeholder="x-auth-token header">
+  </div>
+
+  <div>
+    <button onclick="doStatus()">Status</button>
+    <button onclick="doConnect()">Connect (auto)</button>
+    <button onclick="doDisconnect()">Disconnect</button>
+  </div>
+
+  <div>
+    <select id="country">
+      <option value="es">Spain</option>
+      <option value="us">United States</option>
+      <option value="de">Germany</option>
+      <option value="nl">Netherlands</option>
+      <option value="fr">France</option>
+      <!-- You can add more -->
+    </select>
+    <button onclick="doConnectCountry()">Connect to country</button>
+  </div>
+
+  <div>
+    <button onclick="doIpInfo()">Check public IP / country</button>
+  </div>
+
+  <h2>Output</h2>
+  <pre id="output"></pre>
+
+<script>
+  function getHeaders() {
+    const token = document.getElementById('token').value;
+    const headers = { 'Content-Type': 'application/json' };
+    if (token) headers['x-auth-token'] = token;
+    return headers;
+  }
+
+  async function doStatus() {
+    const res = await fetch('/api/status', { headers: getHeaders() });
+    const data = await res.json();
+    document.getElementById('output').textContent = data.output || JSON.stringify(data, null, 2);
+  }
+
+  async function doConnect() {
+    const res = await fetch('/api/connect', {
+      method: 'POST',
+      headers: getHeaders(),
+      body: JSON.stringify({})
+    });
+    const data = await res.json();
+    document.getElementById('output').textContent = data.output || JSON.stringify(data, null, 2);
+  }
+
+  async function doConnectCountry() {
+    const country = document.getElementById('country').value;
+    const res = await fetch('/api/connect', {
+      method: 'POST',
+      headers: getHeaders(),
+      body: JSON.stringify({ country })
+    });
+    const data = await res.json();
+    document.getElementById('output').textContent = data.output || JSON.stringify(data, null, 2);
+  }
+
+  async function doDisconnect() {
+    const res = await fetch('/api/disconnect', {
+      method: 'POST',
+      headers: getHeaders()
+    });
+    const data = await res.json();
+    document.getElementById('output').textContent = data.output || JSON.stringify(data, null, 2);
+  }
+
+  async function doIpInfo() {
+    const res = await fetch('/api/ipinfo', { headers: getHeaders() });
+    const data = await res.json();
+    document.getElementById('output').textContent = JSON.stringify(data, null, 2);
+  }
+</script>
+</body>
+</html>

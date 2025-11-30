@@ -1,0 +1,26 @@
+{
+    "name": "nordvpn-linux-dashboard",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "start": "node src/server.js"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/adborroto/nordvpn-linux-dashboard.git"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "type": "commonjs",
+    "bugs": {
+        "url": "https://github.com/adborroto/nordvpn-linux-dashboard/issues"
+    },
+    "homepage": "https://github.com/adborroto/nordvpn-linux-dashboard#readme",
+    "dependencies": {
+        "cors": "^2.8.5",
+        "express": "^5.1.0"
+    }
+}
