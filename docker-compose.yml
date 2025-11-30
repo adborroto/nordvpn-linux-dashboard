@@ -9,7 +9,7 @@ services:
       - PORT=4722
     restart: unless-stopped
     volumes:
-      - /usr/bin/nordvpn:/usr/bin/nordvpn:ro
-      - /usr/sbin/nordvpn:/usr/sbin/nordvpn:ro
+      - /usr/bin/nordvpn:/usr/bin/nordvpn
+      - /usr/sbin/nordvpn:/usr/sbin/nordvpn
     privileged: true
 
