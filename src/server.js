@@ -5,8 +5,8 @@ const { exec } = require("child_process");
 const app = express();
 const PORT = process.env.PORT || 4722;
 
-const NORDVPN_PATH = "/home/root";
-
+const NORDVPN_PATH = "/usr/bin";
+const NORDVPN_BINARY = "nordvpn";
 app.use(cors());
 app.use(express.json());
 app.use(express.static("public"));
@@ -31,7 +31,7 @@ function runCommand(cmd) {
 
 app.get("/api/status", async (req, res) => {
   console.log(`[API] GET /api/status - Request received`);
-  const result = await runCommand(`${NORDVPN_PATH}/nordvpn status`);
+  const result = await runCommand(`${NORDVPN_PATH}/${NORDVPN_BINARY} status`);
   console.log(
     `[API] GET /api/status - Response: ${result.ok ? "OK" : "FAILED"}`
   );
@@ -46,8 +46,8 @@ app.post("/api/connect", async (req, res) => {
     }`
   );
   const target = country
-    ? `${NORDVPN_PATH}/nordvpn connect ${country}`
-    : `${NORDVPN_PATH}/nordvpn connect`;
+    ? `${NORDVPN_PATH}/${NORDVPN_BINARY} connect ${country}`
+    ? `${NORDVPN_PATH}/${NORDVPN_BINARY} connect`
   const result = await runCommand(target);
   console.log(
     `[API] POST /api/connect - Response: ${result.ok ? "OK" : "FAILED"}`
@@ -57,7 +57,7 @@ app.post("/api/connect", async (req, res) => {
 
 app.post("/api/disconnect", async (req, res) => {
   console.log(`[API] POST /api/disconnect - Request received`);
-  const result = await runCommand(`${NORDVPN_PATH}/nordvpn disconnect`);
+  const result = await runCommand(`${NORDVPN_PATH}/${NORDVPN_BINARY} disconnect`);
   console.log(
     `[API] POST /api/disconnect - Response: ${result.ok ? "OK" : "FAILED"}`
   );
