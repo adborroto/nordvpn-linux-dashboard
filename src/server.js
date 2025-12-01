@@ -47,7 +47,8 @@ app.post("/api/connect", async (req, res) => {
   );
   const target = country
     ? `${NORDVPN_PATH}/${NORDVPN_BINARY} connect ${country}`
-    ? `${NORDVPN_PATH}/${NORDVPN_BINARY} connect`
+    : `${NORDVPN_PATH}/${NORDVPN_BINARY} connect`;
+
   const result = await runCommand(target);
   console.log(
     `[API] POST /api/connect - Response: ${result.ok ? "OK" : "FAILED"}`
@@ -57,7 +58,9 @@ app.post("/api/connect", async (req, res) => {
 
 app.post("/api/disconnect", async (req, res) => {
   console.log(`[API] POST /api/disconnect - Request received`);
-  const result = await runCommand(`${NORDVPN_PATH}/${NORDVPN_BINARY} disconnect`);
+  const result = await runCommand(
+    `${NORDVPN_PATH}/${NORDVPN_BINARY} disconnect`
+  );
   console.log(
     `[API] POST /api/disconnect - Response: ${result.ok ? "OK" : "FAILED"}`
   );
