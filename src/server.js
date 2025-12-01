@@ -29,7 +29,7 @@ function runCommand(cmd) {
 
 app.get("/api/status", async (req, res) => {
   console.log(`[API] GET /api/status - Request received`);
-  const result = await runCommand("nordvpn status");
+  const result = await runCommand("/usr/bin/nordvpn status");
   console.log(
     `[API] GET /api/status - Response: ${result.ok ? "OK" : "FAILED"}`
   );
@@ -43,7 +43,9 @@ app.post("/api/connect", async (req, res) => {
       country ? ` (country: ${country})` : ""
     }`
   );
-  const target = country ? `nordvpn connect ${country}` : "nordvpn connect";
+  const target = country
+    ? `/usr/bin/nordvpn connect ${country}`
+    : "/usr/bin/nordvpn connect";
   const result = await runCommand(target);
   console.log(
     `[API] POST /api/connect - Response: ${result.ok ? "OK" : "FAILED"}`
@@ -53,7 +55,7 @@ app.post("/api/connect", async (req, res) => {
 
 app.post("/api/disconnect", async (req, res) => {
   console.log(`[API] POST /api/disconnect - Request received`);
-  const result = await runCommand("nordvpn disconnect");
+  const result = await runCommand("/usr/bin/nordvpn disconnect");
   console.log(
     `[API] POST /api/disconnect - Response: ${result.ok ? "OK" : "FAILED"}`
   );
