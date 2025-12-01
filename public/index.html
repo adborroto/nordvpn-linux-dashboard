@@ -64,9 +64,7 @@
 
 <script>
   function getHeaders() {
-    const token = document.getElementById('token').value;
     const headers = { 'Content-Type': 'application/json' };
-    if (token) headers['x-auth-token'] = token;
     return headers;
   }
 
