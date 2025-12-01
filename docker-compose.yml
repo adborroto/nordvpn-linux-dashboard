@@ -9,7 +9,7 @@ services:
     environment:
       - PORT=4722
     volumes:
-      - /usr/bin/nordvpn:/usr/bin/nordvpn
+      - /usr/bin/nordvpn:/home/root/nordvpn
       - /run/nordvpn:/run/nordvpn
     privileged: true
     restart: unless-stopped
